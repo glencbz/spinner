@@ -1,7 +1,9 @@
-var Pointer = React.createClass({
+$(function(){var Pointer = React.createClass({
 	render: function(){
 		document.addEventListener('mouseup', this.onMouseUp);
 		document.addEventListener('mousedown', this.onMouseDown);
+		document.addEventListener('touchstart', this.onMouseDown);
+		document.addEventListener('touchend', this.onMouseDown);
 		return(
 	        <div className="pointer" style={this.style()}>
 	            <div className="head"></div>
@@ -32,24 +34,28 @@ var Pointer = React.createClass({
 		};
 	},
 	onMouseUp: function(e){
-		endMouseX = e.pageX;
-		endMouseY = e.pageY;
-		timeEnd = Date.now();
-		var distance = dist(endMouseX, startMouseX, endMouseY, startMouseY);
-		var speed = getSpeed(distance, timeStart, timeEnd);
+		this.setState({
+			endMouseX: e.pageX,
+			endMouseY: e.pageY,
+			timeEnd: Date.now(),
+		});
+		var distance = dist(this.state.endMouseX, this.state.startMouseX, this.state.endMouseY, this.state.startMouseY);
+		var speed = getSpeed(distance, this.state.timeStart, this.state.timeEnd);
 		this.rotate(speedToRotation(speed));
-		console.log(speed);
-		console.log(speedToRotation(speed));
 	},
 	onMouseDown: function(e){
-		startMouseX = e.pageX;
-		startMouseY = e.pageY;
-		timeStart = Date.now();
+		this.setState({
+			startMouseX: e.pageX,
+			startMouseY: e.pageY,
+			timeStart: Date.now(),
+		});
 	}
 });
 
 var reactPointer = React.createElement(Pointer, null);
 ReactDOM.render(reactPointer, document.getElementById("pointer"));
+});
+
 
 function dist(x1, x2, y1, y2){
 	return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));

@@ -1,57 +1,63 @@
-var Pointer = React.createClass({
-	displayName: 'Pointer',
+$(function () {
+	var Pointer = React.createClass({
+		displayName: 'Pointer',
 
-	render: function () {
-		document.addEventListener('mouseup', this.onMouseUp);
-		document.addEventListener('mousedown', this.onMouseDown);
-		return React.createElement(
-			'div',
-			{ className: 'pointer', style: this.style() },
-			React.createElement('div', { className: 'head' }),
-			React.createElement('div', { className: 'body' }),
-			React.createElement('div', { className: 'tail' }),
-			React.createElement('div', { className: 'pin' })
-		);
-	},
-	getInitialState: function () {
-		return {
-			rotation: 0,
-			startMouseX: NaN,
-			startMouseY: NaN,
-			endMouseX: NaN,
-			endMouseY: NaN,
-			timeStart: Date.now(),
-			timeEnd: Date.now()
-		};
-	},
-	rotate: function (rotateAmount) {
-		var finalPosition = this.state.rotation + rotateAmount;
-		this.setState({ rotation: finalPosition });
-	},
-	style: function () {
-		return {
-			transform: 'rotate(' + this.state.rotation + 'deg)'
-		};
-	},
-	onMouseUp: function (e) {
-		endMouseX = e.pageX;
-		endMouseY = e.pageY;
-		timeEnd = Date.now();
-		var distance = dist(endMouseX, startMouseX, endMouseY, startMouseY);
-		var speed = getSpeed(distance, timeStart, timeEnd);
-		this.rotate(speedToRotation(speed));
-		console.log(speed);
-		console.log(speedToRotation(speed));
-	},
-	onMouseDown: function (e) {
-		startMouseX = e.pageX;
-		startMouseY = e.pageY;
-		timeStart = Date.now();
-	}
+		render: function () {
+			document.addEventListener('mouseup', this.onMouseUp);
+			document.addEventListener('mousedown', this.onMouseDown);
+			document.addEventListener('touchstart', this.onMouseDown);
+			document.addEventListener('touchend', this.onMouseDown);
+			return React.createElement(
+				'div',
+				{ className: 'pointer', style: this.style() },
+				React.createElement('div', { className: 'head' }),
+				React.createElement('div', { className: 'body' }),
+				React.createElement('div', { className: 'tail' }),
+				React.createElement('div', { className: 'pin' })
+			);
+		},
+		getInitialState: function () {
+			return {
+				rotation: 0,
+				startMouseX: NaN,
+				startMouseY: NaN,
+				endMouseX: NaN,
+				endMouseY: NaN,
+				timeStart: Date.now(),
+				timeEnd: Date.now()
+			};
+		},
+		rotate: function (rotateAmount) {
+			var finalPosition = this.state.rotation + rotateAmount;
+			this.setState({ rotation: finalPosition });
+		},
+		style: function () {
+			return {
+				transform: 'rotate(' + this.state.rotation + 'deg)'
+			};
+		},
+		onMouseUp: function (e) {
+			this.setState({
+				endMouseX: e.pageX,
+				endMouseY: e.pageY,
+				timeEnd: Date.now()
+			});
+			var distance = dist(this.state.endMouseX, this.state.startMouseX, this.state.endMouseY, this.state.startMouseY);
+			var speed = getSpeed(distance, this.state.timeStart, this.state.timeEnd);
+			this.rotate(speedToRotation(speed));
+		},
+		onMouseDown: function (e) {
+			this.setState({
+				startMouseX: e.pageX,
+				startMouseY: e.pageY,
+				timeStart: Date.now()
+			});
+		}
+	});
+
+	var reactPointer = React.createElement(Pointer, null);
+	ReactDOM.render(reactPointer, document.getElementById("pointer"));
 });
-
-var reactPointer = React.createElement(Pointer, null);
-ReactDOM.render(reactPointer, document.getElementById("pointer"));
 
 function dist(x1, x2, y1, y2) {
 	return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
