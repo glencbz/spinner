@@ -2,8 +2,8 @@ $(function(){var Pointer = React.createClass({
 	render: function(){
 		document.addEventListener('mouseup', this.onMouseUp);
 		document.addEventListener('mousedown', this.onMouseDown);
-		document.addEventListener('touchstart', this.onMouseDown);
-		document.addEventListener('touchend', this.onMouseDown);
+		document.addEventListener('touchstart', this.onMouseDown, false);
+		document.addEventListener('touchend', this.onMouseUp, false);
 		return(
 	        <div className="pointer" style={this.style()}>
 	            <div className="head"></div>
@@ -34,6 +34,7 @@ $(function(){var Pointer = React.createClass({
 		};
 	},
 	onMouseUp: function(e){
+		console.log("wtf");
 		this.setState({
 			endMouseX: e.pageX,
 			endMouseY: e.pageY,
@@ -44,6 +45,7 @@ $(function(){var Pointer = React.createClass({
 		this.rotate(speedToRotation(speed));
 	},
 	onMouseDown: function(e){
+		console.log("wtf");
 		this.setState({
 			startMouseX: e.pageX,
 			startMouseY: e.pageY,

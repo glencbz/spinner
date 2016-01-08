@@ -5,8 +5,8 @@ $(function () {
 		render: function () {
 			document.addEventListener('mouseup', this.onMouseUp);
 			document.addEventListener('mousedown', this.onMouseDown);
-			document.addEventListener('touchstart', this.onMouseDown);
-			document.addEventListener('touchend', this.onMouseDown);
+			document.addEventListener('touchstart', this.onMouseDown, false);
+			document.addEventListener('touchend', this.onMouseUp, false);
 			return React.createElement(
 				'div',
 				{ className: 'pointer', style: this.style() },
@@ -37,6 +37,7 @@ $(function () {
 			};
 		},
 		onMouseUp: function (e) {
+			console.log("wtf");
 			this.setState({
 				endMouseX: e.pageX,
 				endMouseY: e.pageY,
@@ -47,6 +48,7 @@ $(function () {
 			this.rotate(speedToRotation(speed));
 		},
 		onMouseDown: function (e) {
+			console.log("wtf");
 			this.setState({
 				startMouseX: e.pageX,
 				startMouseY: e.pageY,
