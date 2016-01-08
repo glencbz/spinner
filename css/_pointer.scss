@@ -7,7 +7,7 @@ $pointer-tail-height: $pointer-tail-width / 2;
 $pointer-body-offset: $pointer-head-width / 2;
 $pointer-height: $pointer-body-height + $pointer-head-height + $pointer-tail-height;
 $pointer-center: $pointer-height * 0.7;
-$pin-width: 0.5vw;
+$pin-width: 0.2vw;
 
 $backing-height: 50vw;
 
@@ -16,13 +16,13 @@ $backing-height: 50vw;
     width: $pointer-tail-width;
     height: $pointer-height;
     transform-origin: 50% $pointer-center;
+    transform: rotate(0deg);
     left: 0;
     right: 0;
     top: $backing-height / 2 - $pointer-center;
     margin-left: auto;
     margin-right: auto;
-
-    // animation: spin 5s cubic-bezier(0, 0.16, 0.35, 0.96) infinite;
+    transition: 4s ease-out;
     .body {
         position: absolute;
         top: $pointer-body-offset - 0.1vw;
@@ -55,7 +55,7 @@ $backing-height: 50vw;
         background: #CECECE;
         height: $pin-width;
         width: $pin-width;
-        border-radius: $pin-width;
+        border-radius: $pin-width / 2;
     }
 }
 
@@ -76,8 +76,8 @@ $border-color: gray;
        justify-content: center;
        box-sizing: border-box;
        .color-circle{
-            width: 50%;
-            height: 50%;
+            width: 65%;
+            height: 65%;
             border-radius: 50%;
        }
     }
@@ -109,14 +109,5 @@ $border-color: gray;
         .color-circle{
             background-color: green;
         }
-    }
-}
-
-@keyframes spin{
-    from{
-        transform: rotate(0deg);
-    }
-    to{
-        transform: rotate(360deg);
     }
 }
