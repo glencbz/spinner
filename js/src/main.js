@@ -1,3 +1,6 @@
+$(function(){
+var $instruct = $("#instruct");
+
 var Backing = React.createClass({
 	render: function(){
 		document.addEventListener('mouseup', this.onMouseUp);
@@ -47,6 +50,7 @@ var Backing = React.createClass({
 				timeEnd: Date.now(),
 			});
 		moved = true;
+		$instruct.addClass("hidden");
 		var distance = dist(this.state.endMouseX, this.state.startMouseX, this.state.endMouseY, this.state.startMouseY);
 		var speed = getSpeed(distance, this.state.timeStart, this.state.timeEnd);
 		this.rotate(speedToRotation(speed));
@@ -105,8 +109,6 @@ ReactDOM.render(reactBacking, document.getElementById("backing"));
 
 var currentRotation = 0;
 var moved = false;
-
-$(function(){
 var $pointer = $(".pointer");
 var $topLeft = $(".top-left .fa");
 var $topRight = $(".top-right .fa");

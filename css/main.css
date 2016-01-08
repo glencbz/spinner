@@ -48,63 +48,63 @@ textarea {
    ========================================================================== */
 .pointer {
   position: absolute;
-  width: 5vw;
-  height: 33vw;
-  transform-origin: 50% 23.1vw;
+  width: 1em;
+  height: 6.6em;
+  transform-origin: 50% 4.62em;
   transform: rotate(0deg);
   left: 0;
   right: 0;
-  top: 1.9vw;
+  top: 2.88em;
   margin-left: auto;
   margin-right: auto;
   transition: 4s cubic-bezier(0.17, 0.67, 0.09, 0.96); }
   .pointer .body {
     position: absolute;
-    top: 0.4vw;
-    border-bottom: 30vw solid black;
-    border-left: 2vw solid transparent;
-    border-right: 2vw solid transparent;
+    top: 0em;
+    border-bottom: 6em solid black;
+    border-left: 0.4em solid transparent;
+    border-right: 0.4em solid transparent;
     height: 0;
-    width: 1vw;
+    width: 0.2em;
     left: 0;
     right: 0;
     margin-left: auto;
     margin-right: auto; }
   .pointer .tail {
     position: absolute;
-    top: 30.3vw;
-    width: 4.9vw;
-    height: 2.5vw;
+    top: 5.9em;
+    width: 0.9em;
+    height: 0.5em;
     background: black;
-    border-radius: 0 0 2.5vw 2.5vw;
+    border-radius: 0 0 0.5em 0.5em;
     left: 0;
     right: 0;
     margin-right: auto;
     margin-left: auto; }
   .pointer .head {
     position: absolute;
-    left: 2vw;
-    width: 1vw;
-    height: 0.5vw;
+    left: 0.4em;
+    width: 0.2em;
+    height: 0.1em;
     background: black;
-    border-radius: 0.5vw 0.5vw 0 0; }
+    border-radius: 0.1em 0.1em 0 0; }
   .pointer .pin {
     position: absolute;
-    top: 23.0vw;
-    left: 2.4vw;
+    top: 4.615em;
+    left: 0.495em;
     background: #CECECE;
-    height: 0.2vw;
-    width: 0.2vw;
-    border-radius: 0.1vw; }
+    height: 0.01em;
+    width: 0.01em;
+    border-radius: 0.005em; }
 
 .backing {
-  height: 50vw;
-  width: 50vw;
+  height: 15em;
+  width: 15em;
   box-shadow: 0px 2px 8px gray;
   position: relative; }
   .backing .section {
     width: 50%;
-    height: 25vw;
+    height: 7.5em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -118,7 +118,7 @@ textarea {
       justify-content: center; }
       .backing .section .color-circle i {
         color: white;
-        font-size: 7vw; }
+        font-size: 2em; }
   .backing .section.top-left {
     border-right: 1px solid gray;
     border-bottom: 1px solid gray; }
@@ -155,7 +155,7 @@ p, h1 {
 
 #move {
   color: #424242;
-  font-size: 4vw; }
+  font-size: 1.4em; }
 
 #top-bar {
   width: 100%;
