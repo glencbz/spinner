@@ -161,7 +161,8 @@ p, h1, div {
   width: 100%;
   text-align: center;
   padding-bottom: 1em;
-  margin-bottom: 2em; }
+  margin-bottom: 2em;
+  font-family: "Avenir", "Gill Sans", "Geneva", "American Typewriter", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; }
 
 #top-line {
   height: 80px;
