@@ -32,19 +32,24 @@ $(function(){var Pointer = React.createClass({
 		};
 	},
 	onMouseUp: function(e){
-		endMouseX = e.pageX;
-		endMouseY = e.pageY;
-		timeEnd = Date.now();
-		var distance = dist(endMouseX, startMouseX, endMouseY, startMouseY);
-		var speed = getSpeed(distance, timeStart, timeEnd);
+		this.setState({
+			endMouseX: e.pageX,
+			endMouseY: e.pageY,
+			timeEnd: Date.now(),
+		});
+		var distance = dist(this.state.endMouseX, this.state.startMouseX, this.state.endMouseY, this.state.startMouseY);
+		var speed = getSpeed(distance, this.state.timeStart, this.state.timeEnd);
 		this.rotate(speedToRotation(speed));
 	},
 	onMouseDown: function(e){
-		startMouseX = e.pageX;
-		startMouseY = e.pageY;
-		timeStart = Date.now();
+		this.setState({
+			startMouseX: e.pageX,
+			startMouseX: e.pageY,
+			timeStart: Date.now(),
+		};
 	}
 });
+		
 var reactPointer = React.createElement(Pointer, null);
 ReactDOM.render(reactPointer, document.getElementById("pointer"));
 });
