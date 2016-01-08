@@ -5,6 +5,8 @@ $(function () {
 		render: function () {
 			document.addEventListener('mouseup', this.onMouseUp);
 			document.addEventListener('mousedown', this.onMouseDown);
+			document.addEventListener('touchstart', this.onMouseDown);
+			document.addEventListener('touchend', this.onMouseUp);
 			return React.createElement(
 				'div',
 				{ className: 'pointer', style: this.style() },
@@ -35,7 +37,13 @@ $(function () {
 			};
 		},
 		onMouseUp: function (e) {
-			this.setState({
+			if (e.type == "touchend") {
+				this.setState({
+					endMouseX: e.changedTouches[0].pageX,
+					endMouseY: e.changedTouches[0].pageY,
+					timeEnd: Date.now()
+				});
+			} else this.setState({
 				endMouseX: e.pageX,
 				endMouseY: e.pageY,
 				timeEnd: Date.now()
@@ -45,7 +53,13 @@ $(function () {
 			this.rotate(speedToRotation(speed));
 		},
 		onMouseDown: function (e) {
-			this.setState({
+			if (e.type == "touchstart") {
+				this.setState({
+					startMouseX: e.changedTouches[0].pageX,
+					startMouseY: e.changedTouches[0].pageY,
+					timeStart: Date.now()
+				});
+			} else this.setState({
 				startMouseX: e.pageX,
 				startMouseY: e.pageY,
 				timeStart: Date.now()
