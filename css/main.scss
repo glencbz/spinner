@@ -72,14 +72,22 @@ p, h1 {
 
 #move {
     color: #424242;
+    font-size: 4vw;
 }
 
 #top-bar{
-    border-bottom: 1px solid #E8E8E8;
     width: 100%;
     text-align: center;
     padding-bottom: 1em;
     margin-bottom: 2em;
+}
+
+#top-line{
+    height: 80px;
+    border-bottom: 1px solid #E8E8E8;
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
 
 /* ==========================================================================
