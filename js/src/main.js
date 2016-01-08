@@ -9,24 +9,24 @@ var Backing = React.createClass({
         <div className="pure-g">
             <div className="section top-left pure-u-1-2">
                 <div className="color-circle">
-                    <i className="fa-arrow-down fa"></i>
+                    <i className="fa"></i>
                 </div>
             </div>
             <div className="section top-right pure-u-1-2">
                 <div className="color-circle">
-                    <i className="fa-arrow-down fa"></i>
+                    <i className="fa"></i>
                 </div>
             </div>
         </div>
         <div className="pure-g">
             <div className="section bot-left pure-u-1-2">
                 <div className="color-circle">
-                    <i className="fa-arrow-down fa"></i>
+                    <i className="fa"></i>
                 </div>
             </div>
             <div className="section bot-right pure-u-1-2">
                 <div className="color-circle">
-                    <i className="fa-arrow-down fa"></i>
+                    <i className="fa"></i>
                 </div>
             </div>
         </div>
@@ -46,6 +46,7 @@ var Backing = React.createClass({
 				endMouseY: e.pageY,
 				timeEnd: Date.now(),
 			});
+		moved = true;
 		var distance = dist(this.state.endMouseX, this.state.startMouseX, this.state.endMouseY, this.state.startMouseY);
 		var speed = getSpeed(distance, this.state.timeStart, this.state.timeEnd);
 		this.rotate(speedToRotation(speed));
@@ -103,6 +104,7 @@ var reactBacking = React.createElement(Backing, null);
 ReactDOM.render(reactBacking, document.getElementById("backing"));
 
 var currentRotation = 0;
+var moved = false;
 
 $(function(){
 var $pointer = $(".pointer");
@@ -110,38 +112,63 @@ var $topLeft = $(".top-left .fa");
 var $topRight = $(".top-right .fa");
 var $bottomRight = $(".bot-right .fa");
 var $bottomLeft = $(".bot-left .fa");
+var $move = $("#move");
 
 var timer = setInterval(function () {
     currentRotation = getRotationAngle($pointer.css("transform"));
-    console.log(currentRotation);
 	if (currentRotation >= 0 && currentRotation < 90){
+		var sectionRotation = currentRotation * 4;
 		$topRight.css("display", "inline-block");
-		$topRight.css("transform", "rotate(" + currentRotation * 4 + "deg)");
-		$topRight.css("data-content", "LF");
+		if (moved)
+			$move.html(getLimbClass(sectionRotation, $topRight) + " on red");
 	}
 	else
 		$topRight.css("display", "none");
 	if (currentRotation >= 90 && currentRotation < 180){
+		var sectionRotation = (currentRotation - 90) * 4;
 		$bottomRight.css("display", "inline-block");
-		$bottomRight.css("transform", "rotate(" + (currentRotation - 90) * 4 + "deg)");
+		if (moved)
+			$move.html(getLimbClass(sectionRotation, $bottomRight) + " on green");
 	}
 	else
 		$bottomRight.css("display", "none");
 	if (currentRotation >= -180 && currentRotation < -90){
+		var sectionRotation = (currentRotation + 180) * 4;
 		$bottomLeft.css("display", "inline-block");
-		$bottomLeft.css("transform", "rotate(" + (currentRotation + 180) * 4 + "deg)");
+		if (moved)
+			$move.html(getLimbClass(sectionRotation, $bottomLeft) + " on yellow");
 	}
 	else
 		$bottomLeft.css("display", "none");
 	if (currentRotation >= -90 && currentRotation < 0){
+		var sectionRotation = (currentRotation + 90) * 4;
 		$topLeft.css("display", "inline-block");
-		$topLeft.css("transform", "rotate(" + (currentRotation + 90) * 4 + "deg)");
+		if (moved)
+			$move.html(getLimbClass(sectionRotation, $topLeft) + " on blue");
 	}
 	else
 		$topLeft.css("display", "none");
 }, 1);
 });
 
+function getLimbClass(rotation, $target){
+	if (rotation > 0 && rotation <= 90){
+		$target.attr("class", "fi-foot");
+		return "Left foot";
+	}
+	else if (rotation > 90 && rotation <= 180){
+		$target.attr("class", "fi-foot reverse");
+		return "Right foot";
+	}
+	else if (rotation > 180 && rotation <= 270){
+		$target.attr("class", "fa fa-hand-paper-o");
+		return "Right hand";
+	}
+	else if (rotation > 180){
+		$target.attr("class", "fa fa-hand-paper-o reverse");
+		return "Left hand";
+	}
+}
 
 function dist(x1, x2, y1, y2){
 	return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
