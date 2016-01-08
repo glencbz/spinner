@@ -111,7 +111,13 @@ textarea {
     .backing .section .color-circle {
       width: 65%;
       height: 65%;
-      border-radius: 50%; }
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center; }
+      .backing .section .color-circle .fa {
+        color: white;
+        font-size: 7vw; }
   .backing .section.top-left {
     border-right: 1px solid gray;
     border-bottom: 1px solid gray; }
@@ -126,7 +132,7 @@ textarea {
     border-right: 1px solid gray;
     border-top: 1px solid gray; }
     .backing .section.bot-left .color-circle {
-      background-color: #F1F700; }
+      background-color: #EBF100; }
   .backing .section.bot-right {
     border-left: 1px solid gray;
     border-top: 1px solid gray; }
