@@ -1,134 +1,136 @@
-var Backing = React.createClass({
-	displayName: 'Backing',
+$(function () {
+	var $instruct = $("#instruct");
 
-	render: function () {
-		document.addEventListener('mouseup', this.onMouseUp);
-		document.addEventListener('mousedown', this.onMouseDown);
-		document.addEventListener('touchstart', this.onMouseDown);
-		document.addEventListener('touchend', this.onMouseUp);
-		return React.createElement(
-			'div',
-			{ className: 'backing' },
-			React.createElement(
+	var Backing = React.createClass({
+		displayName: 'Backing',
+
+		render: function () {
+			document.addEventListener('mouseup', this.onMouseUp);
+			document.addEventListener('mousedown', this.onMouseDown);
+			document.addEventListener('touchstart', this.onMouseDown);
+			document.addEventListener('touchend', this.onMouseUp);
+			return React.createElement(
 				'div',
-				{ className: 'pure-g' },
+				{ className: 'backing' },
 				React.createElement(
 					'div',
-					{ className: 'section top-left pure-u-1-2' },
+					{ className: 'pure-g' },
 					React.createElement(
 						'div',
-						{ className: 'color-circle' },
-						React.createElement('i', { className: 'fa' })
+						{ className: 'section top-left pure-u-1-2' },
+						React.createElement(
+							'div',
+							{ className: 'color-circle' },
+							React.createElement('i', { className: 'fa' })
+						)
+					),
+					React.createElement(
+						'div',
+						{ className: 'section top-right pure-u-1-2' },
+						React.createElement(
+							'div',
+							{ className: 'color-circle' },
+							React.createElement('i', { className: 'fa' })
+						)
 					)
 				),
 				React.createElement(
 					'div',
-					{ className: 'section top-right pure-u-1-2' },
+					{ className: 'pure-g' },
 					React.createElement(
 						'div',
-						{ className: 'color-circle' },
-						React.createElement('i', { className: 'fa' })
-					)
-				)
-			),
-			React.createElement(
-				'div',
-				{ className: 'pure-g' },
-				React.createElement(
-					'div',
-					{ className: 'section bot-left pure-u-1-2' },
+						{ className: 'section bot-left pure-u-1-2' },
+						React.createElement(
+							'div',
+							{ className: 'color-circle' },
+							React.createElement('i', { className: 'fa' })
+						)
+					),
 					React.createElement(
 						'div',
-						{ className: 'color-circle' },
-						React.createElement('i', { className: 'fa' })
+						{ className: 'section bot-right pure-u-1-2' },
+						React.createElement(
+							'div',
+							{ className: 'color-circle' },
+							React.createElement('i', { className: 'fa' })
+						)
 					)
 				),
-				React.createElement(
-					'div',
-					{ className: 'section bot-right pure-u-1-2' },
-					React.createElement(
-						'div',
-						{ className: 'color-circle' },
-						React.createElement('i', { className: 'fa' })
-					)
-				)
-			),
-			React.createElement(Pointer, { rotation: this.state.rotation })
-		);
-	},
-	onMouseUp: function (e) {
-		if (e.type == "touchend") {
-			this.setState({
-				endMouseX: e.changedTouches[0].pageX,
-				endMouseY: e.changedTouches[0].pageY,
+				React.createElement(Pointer, { rotation: this.state.rotation })
+			);
+		},
+		onMouseUp: function (e) {
+			if (e.type == "touchend") {
+				this.setState({
+					endMouseX: e.changedTouches[0].pageX,
+					endMouseY: e.changedTouches[0].pageY,
+					timeEnd: Date.now()
+				});
+			} else this.setState({
+				endMouseX: e.pageX,
+				endMouseY: e.pageY,
 				timeEnd: Date.now()
 			});
-		} else this.setState({
-			endMouseX: e.pageX,
-			endMouseY: e.pageY,
-			timeEnd: Date.now()
-		});
-		moved = true;
-		var distance = dist(this.state.endMouseX, this.state.startMouseX, this.state.endMouseY, this.state.startMouseY);
-		var speed = getSpeed(distance, this.state.timeStart, this.state.timeEnd);
-		this.rotate(speedToRotation(speed));
-	},
-	onMouseDown: function (e) {
-		if (e.type == "touchstart") {
-			this.setState({
-				startMouseX: e.changedTouches[0].pageX,
-				startMouseY: e.changedTouches[0].pageY,
+			moved = true;
+			$instruct.addClass("hidden");
+			var distance = dist(this.state.endMouseX, this.state.startMouseX, this.state.endMouseY, this.state.startMouseY);
+			var speed = getSpeed(distance, this.state.timeStart, this.state.timeEnd);
+			this.rotate(speedToRotation(speed));
+		},
+		onMouseDown: function (e) {
+			if (e.type == "touchstart") {
+				this.setState({
+					startMouseX: e.changedTouches[0].pageX,
+					startMouseY: e.changedTouches[0].pageY,
+					timeStart: Date.now()
+				});
+			} else this.setState({
+				startMouseX: e.pageX,
+				startMouseY: e.pageY,
 				timeStart: Date.now()
 			});
-		} else this.setState({
-			startMouseX: e.pageX,
-			startMouseY: e.pageY,
-			timeStart: Date.now()
-		});
-	},
-	getInitialState: function () {
-		return {
-			rotation: 0,
-			startMouseX: NaN,
-			startMouseY: NaN,
-			endMouseX: NaN,
-			endMouseY: NaN,
-			timeStart: Date.now(),
-			timeEnd: Date.now()
-		};
-	},
-	rotate: function (rotateAmount) {
-		var finalPosition = this.state.rotation + rotateAmount;
-		this.setState({ rotation: finalPosition });
-	}
-});
-var Pointer = React.createClass({
-	displayName: 'Pointer',
+		},
+		getInitialState: function () {
+			return {
+				rotation: 0,
+				startMouseX: NaN,
+				startMouseY: NaN,
+				endMouseX: NaN,
+				endMouseY: NaN,
+				timeStart: Date.now(),
+				timeEnd: Date.now()
+			};
+		},
+		rotate: function (rotateAmount) {
+			var finalPosition = this.state.rotation + rotateAmount;
+			this.setState({ rotation: finalPosition });
+		}
+	});
+	var Pointer = React.createClass({
+		displayName: 'Pointer',
 
-	render: function () {
-		return React.createElement(
-			'div',
-			{ className: 'pointer', style: this.style() },
-			React.createElement('div', { className: 'head' }),
-			React.createElement('div', { className: 'body' }),
-			React.createElement('div', { className: 'tail' }),
-			React.createElement('div', { className: 'pin' })
-		);
-	},
-	style: function () {
-		return {
-			transform: 'rotate(' + this.props.rotation + 'deg)'
-		};
-	}
-});
+		render: function () {
+			return React.createElement(
+				'div',
+				{ className: 'pointer', style: this.style() },
+				React.createElement('div', { className: 'head' }),
+				React.createElement('div', { className: 'body' }),
+				React.createElement('div', { className: 'tail' }),
+				React.createElement('div', { className: 'pin' })
+			);
+		},
+		style: function () {
+			return {
+				transform: 'rotate(' + this.props.rotation + 'deg)'
+			};
+		}
+	});
 
-var reactBacking = React.createElement(Backing, null);
-ReactDOM.render(reactBacking, document.getElementById("backing"));
+	var reactBacking = React.createElement(Backing, null);
+	ReactDOM.render(reactBacking, document.getElementById("backing"));
 
-var currentRotation = 0;
-var moved = false;
-
-$(function () {
+	var currentRotation = 0;
+	var moved = false;
 	var $pointer = $(".pointer");
 	var $topLeft = $(".top-left .fa");
 	var $topRight = $(".top-right .fa");
