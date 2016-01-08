@@ -22,7 +22,7 @@ $backing-height: 50vw;
     top: $backing-height / 2 - $pointer-center;
     margin-left: auto;
     margin-right: auto;
-    transition: 4s ease-out;
+    transition: 4s cubic-bezier(.17,.67,.09,.96);
     .body {
         position: absolute;
         top: $pointer-body-offset - 0.1vw;
@@ -31,14 +31,22 @@ $backing-height: 50vw;
         border-right: ($pointer-tail-width - $pointer-head-width) / 2 solid transparent;
         height: 0;
         width: $pointer-head-width;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
     }
     .tail{
         position: absolute;
         top: $pointer-body-height + $pointer-body-offset - 0.2vw;
-        width: $pointer-tail-width;
+        width: $pointer-tail-width - 0.1vw;
         height: $pointer-tail-height;
         background: $pointer-color;
         border-radius: 0 0 $pointer-tail-height $pointer-tail-height;
+        left: 0;
+        right: 0;
+        margin-right: auto;
+        margin-left: auto;
     }
     .head{
         position: absolute;
@@ -62,7 +70,6 @@ $backing-height: 50vw;
 $border-color: gray;
 
 .backing{
-
     height: $backing-height;
     width: $backing-height;
     box-shadow: 0px 2px 8px gray;
