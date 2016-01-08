@@ -146,7 +146,15 @@ textarea {
 body {
   display: flex;
   align-items: center;
-  justify-content: center; }
+  justify-content: center;
+  flex-direction: column; }
+
+p, h1 {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300; }
+
+#move {
+  color: #424242; }
 
 /* ==========================================================================
    Media Queries

@@ -151,7 +151,9 @@ $(function () {
 		if (currentRotation >= -180 && currentRotation < -90) {
 			var sectionRotation = (currentRotation + 180) * 4;
 			$bottomLeft.css("display", "inline-block");
-			if (moved) $move.html(getLimbClass(sectionRotation, $bottomLeft) + " on yellow");
+			if (moved) {
+				$move.html(getLimbClass(sectionRotation, $bottomLeft) + " on yellow");
+			}
 		} else $bottomLeft.css("display", "none");
 		if (currentRotation >= -90 && currentRotation < 0) {
 			var sectionRotation = (currentRotation + 90) * 4;
