@@ -5,8 +5,8 @@ $(function () {
 		render: function () {
 			document.addEventListener('mouseup', this.onMouseUp);
 			document.addEventListener('mousedown', this.onMouseDown);
-			document.addEventListener('touchstart', this.onMouseDown, false);
-			document.addEventListener('touchend', this.onMouseUp, false);
+			document.addEventListener('touchstart', this.onMouseDown);
+			document.addEventListener('touchend', this.onMouseUp);
 			return React.createElement(
 				'div',
 				{ className: 'pointer', style: this.style() },
@@ -37,19 +37,30 @@ $(function () {
 			};
 		},
 		onMouseUp: function (e) {
-			console.log("wtf");
-			this.setState({
+			if (e.type == "touchend") {
+				this.setState({
+					endMouseX: e.changedTouches[0].pageX,
+					endMouseY: e.changedTouches[0].pageY,
+					timeEnd: Date.now()
+				});
+			} else this.setState({
 				endMouseX: e.pageX,
 				endMouseY: e.pageY,
 				timeEnd: Date.now()
 			});
+			console.log(this.state);
 			var distance = dist(this.state.endMouseX, this.state.startMouseX, this.state.endMouseY, this.state.startMouseY);
 			var speed = getSpeed(distance, this.state.timeStart, this.state.timeEnd);
 			this.rotate(speedToRotation(speed));
 		},
 		onMouseDown: function (e) {
-			console.log("wtf");
-			this.setState({
+			if (e.type == "touchstart") {
+				this.setState({
+					startMouseX: e.changedTouches[0].pageX,
+					startMouseY: e.changedTouches[0].pageY,
+					timeStart: Date.now()
+				});
+			} else this.setState({
 				startMouseX: e.pageX,
 				startMouseY: e.pageY,
 				timeStart: Date.now()
