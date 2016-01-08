@@ -70,6 +70,11 @@ p, h1, div {
    font-weight: 300;
 }
 
+@font-face{
+    font-family: Avenir;
+    src: url(../fonts/Avenir.ttc);
+}
+
 #move {
     color: #424242;
     font-size: 1.4em;
@@ -80,7 +85,7 @@ p, h1, div {
     text-align: center;
     padding-bottom: 1em;
     margin-bottom: 2em;
-    font-family: "Avenir", "Gill Sans", "Geneva", "American Typewriter", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-family: Avenir, "Avenir", "Gill Sans", "Geneva", "American Typewriter", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 #top-line{
