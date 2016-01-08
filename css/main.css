@@ -49,19 +49,19 @@ textarea {
 .pointer {
   position: absolute;
   width: 1em;
-  height: 6.6em;
-  transform-origin: 50% 4.62em;
+  height: 7.7em;
+  transform-origin: 50% 5.39em;
   transform: rotate(0deg);
   left: 0;
   right: 0;
-  top: 2.88em;
+  top: 2.11em;
   margin-left: auto;
   margin-right: auto;
   transition: 4s cubic-bezier(0.17, 0.67, 0.09, 0.96); }
   .pointer .body {
     position: absolute;
-    top: 0em;
-    border-bottom: 6em solid black;
+    top: 0.1em;
+    border-bottom: 7em solid black;
     border-left: 0.4em solid transparent;
     border-right: 0.4em solid transparent;
     height: 0;
@@ -72,8 +72,8 @@ textarea {
     margin-right: auto; }
   .pointer .tail {
     position: absolute;
-    top: 5.9em;
-    width: 0.9em;
+    top: 7.1em;
+    width: 1em;
     height: 0.5em;
     background: black;
     border-radius: 0 0 0.5em 0.5em;
@@ -85,12 +85,12 @@ textarea {
     position: absolute;
     left: 0.4em;
     width: 0.2em;
-    height: 0.1em;
+    height: 0.2em;
     background: black;
-    border-radius: 0.1em 0.1em 0 0; }
+    border-radius: 0.2em 0.2em 0 0; }
   .pointer .pin {
     position: absolute;
-    top: 4.615em;
+    top: 5.385em;
     left: 0.495em;
     background: #CECECE;
     height: 0.01em;
