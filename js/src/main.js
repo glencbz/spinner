@@ -44,12 +44,12 @@ $(function(){var Pointer = React.createClass({
 	onMouseDown: function(e){
 		this.setState({
 			startMouseX: e.pageX,
-			startMouseX: e.pageY,
+			startMouseY: e.pageY,
 			timeStart: Date.now(),
-		};
+		});
 	}
 });
-		
+
 var reactPointer = React.createElement(Pointer, null);
 ReactDOM.render(reactPointer, document.getElementById("pointer"));
 });
