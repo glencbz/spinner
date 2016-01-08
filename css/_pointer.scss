@@ -1,7 +1,7 @@
 $pointer-color: black;
-$pointer-body-height: 6em;
+$pointer-body-height: 7em;
 $pointer-head-width: 0.2em;
-$pointer-head-height: $pointer-head-width / 2;
+$pointer-head-height: $pointer-head-width;
 $pointer-tail-width: 1em;
 $pointer-tail-height: $pointer-tail-width / 2;
 $pointer-body-offset: $pointer-head-width / 2;
@@ -25,7 +25,7 @@ $backing-height: 15em;
     transition: 4s cubic-bezier(.17,.67,.09,.96);
     .body {
         position: absolute;
-        top: $pointer-body-offset - 0.1em;
+        top: $pointer-body-offset;
         border-bottom: $pointer-body-height solid $pointer-color;
         border-left: ($pointer-tail-width - $pointer-head-width) / 2 solid transparent;
         border-right: ($pointer-tail-width - $pointer-head-width) / 2 solid transparent;
@@ -38,8 +38,8 @@ $backing-height: 15em;
     }
     .tail{
         position: absolute;
-        top: $pointer-body-height + $pointer-body-offset - 0.2em;
-        width: $pointer-tail-width - 0.1em;
+        top: $pointer-body-height + $pointer-body-offset;
+        width: $pointer-tail-width;
         height: $pointer-tail-height;
         background: $pointer-color;
         border-radius: 0 0 $pointer-tail-height $pointer-tail-height;
@@ -54,7 +54,7 @@ $backing-height: 15em;
         width: $pointer-head-width;
         height: $pointer-head-height;
         background: $pointer-color;
-        border-radius: $pointer-head-height $pointer-head-height 0 0;
+        border-radius: $pointer-head-width $pointer-head-width 0 0;
     }
     .pin{
         position: absolute;
