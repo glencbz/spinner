@@ -188,10 +188,10 @@ function getLimbClass(rotation, $target) {
 		return "Right foot";
 	} else if (rotation >= 180 && rotation < 270) {
 		$target.attr("class", "fa fa-hand-paper-o");
-		return "Left hand";
+		return "Right hand";
 	} else if (rotation > 270) {
 		$target.attr("class", "fa fa-hand-paper-o reverse");
-		return "Right hand";
+		return "Left hand";
 	}
 }
 
