@@ -65,7 +65,7 @@ body {
     flex-direction: column;
 }
 
-p, h1 {
+p, h1, div {
    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
    font-weight: 300;
 }
@@ -88,6 +88,16 @@ p, h1 {
     position: absolute;
     top: 0;
     width: 100%;
+}
+
+.button{
+    padding: 0.5em 1em 0.5em 1em;
+    border: 1px solid #757575;
+    border-radius: 1px;
+    margin: 0.5em;
+    opacity: 0;
+    transition: 1s opacity;
+    color: #424242;
 }
 
 

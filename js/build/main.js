@@ -1,58 +1,74 @@
+var reversed = false;
 $(function () {
 	var $instruct = $("#instruct");
+	var $reverse = $("#reverse");
+	var $reset = $("#reset");
+	var currentRotation = 0;
+	var moved = false;
+
+	$reverse.click(function () {
+		reversed = !reversed;
+	});
 
 	var Backing = React.createClass({
-		displayName: 'Backing',
+		displayName: "Backing",
 
 		render: function () {
 			document.addEventListener('mouseup', this.onMouseUp);
 			document.addEventListener('mousedown', this.onMouseDown);
 			document.addEventListener('touchstart', this.onMouseDown);
 			document.addEventListener('touchend', this.onMouseUp);
+			var outerThis = this;
+			$reset.click(function () {
+				$(this).css("transform", "rotate(0deg)");
+				outerThis.setState({
+					rotation: 0
+				});
+			});
 			return React.createElement(
-				'div',
-				{ className: 'backing' },
+				"div",
+				{ className: "backing" },
 				React.createElement(
-					'div',
-					{ className: 'pure-g' },
+					"div",
+					{ className: "pure-g" },
 					React.createElement(
-						'div',
-						{ className: 'section top-left pure-u-1-2' },
+						"div",
+						{ className: "section top-left pure-u-1-2" },
 						React.createElement(
-							'div',
-							{ className: 'color-circle' },
-							React.createElement('i', { className: 'fa' })
+							"div",
+							{ className: "color-circle" },
+							React.createElement("i", { className: "fa" })
 						)
 					),
 					React.createElement(
-						'div',
-						{ className: 'section top-right pure-u-1-2' },
+						"div",
+						{ className: "section top-right pure-u-1-2" },
 						React.createElement(
-							'div',
-							{ className: 'color-circle' },
-							React.createElement('i', { className: 'fa' })
+							"div",
+							{ className: "color-circle" },
+							React.createElement("i", { className: "fa" })
 						)
 					)
 				),
 				React.createElement(
-					'div',
-					{ className: 'pure-g' },
+					"div",
+					{ className: "pure-g" },
 					React.createElement(
-						'div',
-						{ className: 'section bot-left pure-u-1-2' },
+						"div",
+						{ className: "section bot-left pure-u-1-2" },
 						React.createElement(
-							'div',
-							{ className: 'color-circle' },
-							React.createElement('i', { className: 'fa' })
+							"div",
+							{ className: "color-circle" },
+							React.createElement("i", { className: "fa" })
 						)
 					),
 					React.createElement(
-						'div',
-						{ className: 'section bot-right pure-u-1-2' },
+						"div",
+						{ className: "section bot-right pure-u-1-2" },
 						React.createElement(
-							'div',
-							{ className: 'color-circle' },
-							React.createElement('i', { className: 'fa' })
+							"div",
+							{ className: "color-circle" },
+							React.createElement("i", { className: "fa" })
 						)
 					)
 				),
@@ -73,9 +89,11 @@ $(function () {
 			});
 			moved = true;
 			$instruct.addClass("hidden");
+			$reset.css("opacity", 1);
+			$reverse.css("opacity", 1);
 			var distance = dist(this.state.endMouseX, this.state.startMouseX, this.state.endMouseY, this.state.startMouseY);
 			var speed = getSpeed(distance, this.state.timeStart, this.state.timeEnd);
-			this.rotate(speedToRotation(speed));
+			this.rotate(speedToRotation(speed, reversed));
 		},
 		onMouseDown: function (e) {
 			if (e.type == "touchstart") {
@@ -107,16 +125,16 @@ $(function () {
 		}
 	});
 	var Pointer = React.createClass({
-		displayName: 'Pointer',
+		displayName: "Pointer",
 
 		render: function () {
 			return React.createElement(
-				'div',
-				{ className: 'pointer', style: this.style() },
-				React.createElement('div', { className: 'head' }),
-				React.createElement('div', { className: 'body' }),
-				React.createElement('div', { className: 'tail' }),
-				React.createElement('div', { className: 'pin' })
+				"div",
+				{ className: "pointer", style: this.style() },
+				React.createElement("div", { className: "head" }),
+				React.createElement("div", { className: "body" }),
+				React.createElement("div", { className: "tail" }),
+				React.createElement("div", { className: "pin" })
 			);
 		},
 		style: function () {
@@ -128,16 +146,12 @@ $(function () {
 
 	var reactBacking = React.createElement(Backing, null);
 	ReactDOM.render(reactBacking, document.getElementById("backing"));
-
-	var currentRotation = 0;
-	var moved = false;
 	var $pointer = $(".pointer");
 	var $topLeft = $(".top-left .fa");
 	var $topRight = $(".top-right .fa");
 	var $bottomRight = $(".bot-right .fa");
 	var $bottomLeft = $(".bot-left .fa");
 	var $move = $("#move");
-
 	var timer = setInterval(function () {
 		currentRotation = getRotationAngle($pointer.css("transform"));
 		if (currentRotation >= 0 && currentRotation < 90) {
@@ -166,18 +180,18 @@ $(function () {
 });
 
 function getLimbClass(rotation, $target) {
-	if (rotation > 0 && rotation <= 90) {
+	if (rotation >= 0 && rotation < 90) {
 		$target.attr("class", "fi-foot");
 		return "Left foot";
-	} else if (rotation > 90 && rotation <= 180) {
+	} else if (rotation >= 90 && rotation < 180) {
 		$target.attr("class", "fi-foot reverse");
 		return "Right foot";
-	} else if (rotation > 180 && rotation <= 270) {
+	} else if (rotation >= 180 && rotation < 270) {
 		$target.attr("class", "fa fa-hand-paper-o");
-		return "Right hand";
-	} else if (rotation > 180) {
-		$target.attr("class", "fa fa-hand-paper-o reverse");
 		return "Left hand";
+	} else if (rotation > 270) {
+		$target.attr("class", "fa fa-hand-paper-o reverse");
+		return "Right hand";
 	}
 }
 
@@ -189,14 +203,6 @@ function getSpeed(dis, startTime, endTime) {
 	return dis / (endTime - startTime);
 }
 
-function speedToRotation(originalCss, speed) {
-	return "rotate(" + (speed * 720 + getRotationAngle(originalCss)) + "deg)";
-}
-
-function speedToRotation(speed) {
-	return speed * 360;
-}
-
 function getRotationAngle(rawCss) {
 	if (!rawCss) return NaN;
 	var values = rawCss.split('(')[1],
@@ -206,4 +212,8 @@ function getRotationAngle(rawCss) {
 	var b = values[1];
 	var angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
 	return angle;
+}
+
+function speedToRotation(speed, reversed) {
+	return speed * 360 * (reversed ? -1 : 1);
 }

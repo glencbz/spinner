@@ -1,5 +1,14 @@
+var reversed = false;
 $(function(){
 var $instruct = $("#instruct");
+var $reverse = $("#reverse");
+var $reset = $("#reset");
+var currentRotation = 0;
+var moved = false;
+
+$reverse.click(function(){
+	reversed = !reversed;
+});
 
 var Backing = React.createClass({
 	render: function(){
@@ -7,6 +16,13 @@ var Backing = React.createClass({
 		document.addEventListener('mousedown', this.onMouseDown);
 		document.addEventListener('touchstart', this.onMouseDown);
 		document.addEventListener('touchend', this.onMouseUp);
+		var outerThis = this;
+		$reset.click(function(){
+			$(this).css("transform", "rotate(0deg)");
+			outerThis.setState({
+				rotation: 0,
+			});
+		});
 		return (    
 	<div className="backing">
         <div className="pure-g">
@@ -51,9 +67,11 @@ var Backing = React.createClass({
 			});
 		moved = true;
 		$instruct.addClass("hidden");
+		$reset.css("opacity", 1);
+		$reverse.css("opacity", 1);
 		var distance = dist(this.state.endMouseX, this.state.startMouseX, this.state.endMouseY, this.state.startMouseY);
 		var speed = getSpeed(distance, this.state.timeStart, this.state.timeEnd);
-		this.rotate(speedToRotation(speed));
+		this.rotate(speedToRotation(speed, reversed));
 	},
 	onMouseDown: function(e){
 		if (e.type == "touchstart"){
@@ -106,17 +124,13 @@ var Pointer = React.createClass({
 
 var reactBacking = React.createElement(Backing, null);
 ReactDOM.render(reactBacking, document.getElementById("backing"));
-
-var currentRotation = 0;
-var moved = false;
 var $pointer = $(".pointer");
 var $topLeft = $(".top-left .fa");
 var $topRight = $(".top-right .fa");
 var $bottomRight = $(".bot-right .fa");
 var $bottomLeft = $(".bot-left .fa");
 var $move = $("#move");
-
-var timer = setInterval(function () {
+var timer = setInterval(function(){
     currentRotation = getRotationAngle($pointer.css("transform"));
 	if (currentRotation >= 0 && currentRotation < 90){
 		var sectionRotation = currentRotation * 4;
@@ -155,21 +169,21 @@ var timer = setInterval(function () {
 });
 
 function getLimbClass(rotation, $target){
-	if (rotation > 0 && rotation <= 90){
+	if (rotation >= 0 && rotation < 90){
 		$target.attr("class", "fi-foot");
 		return "Left foot";
 	}
-	else if (rotation > 90 && rotation <= 180){
+	else if (rotation >= 90 && rotation < 180){
 		$target.attr("class", "fi-foot reverse");
 		return "Right foot";
 	}
-	else if (rotation > 180 && rotation <= 270){
+	else if (rotation >= 180 && rotation < 270){
 		$target.attr("class", "fa fa-hand-paper-o");
-		return "Right hand";
-	}
-	else if (rotation > 180){
-		$target.attr("class", "fa fa-hand-paper-o reverse");
 		return "Left hand";
+	}
+	else if (rotation > 270){
+		$target.attr("class", "fa fa-hand-paper-o reverse");
+		return "Right hand";
 	}
 }
 
@@ -179,14 +193,6 @@ function dist(x1, x2, y1, y2){
 
 function getSpeed(dis, startTime, endTime){
 	return dis / (endTime - startTime);
-}
-
-function speedToRotation(originalCss, speed){
-	return "rotate(" + (speed * 720 + getRotationAngle(originalCss)) + "deg)";
-}
-
-function speedToRotation(speed){
-	return speed * 360;
 }
 
 function getRotationAngle(rawCss){
@@ -199,4 +205,8 @@ function getRotationAngle(rawCss){
 	var b = values[1];
 	var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
 	return angle;
+}
+
+function speedToRotation(speed, reversed){
+	return speed * 360 * (reversed ? -1 : 1);
 }
