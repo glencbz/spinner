@@ -20,6 +20,8 @@ $(function(){
 		var distance = (endMouseX, startMouseX, endMouseY, startMouseY);
 		var speed = getSpeed(distance, timeStart, timeEnd);
 		$pointer.css('transform', speedToRotation(originalRoation, speed));
+		console.log($pointer.css('transform'));
+		console.log(speedToRotation(originalRoation, speed));
 	});
 });
 
@@ -33,8 +35,7 @@ function getSpeed(dis, startTime, endTime){
 }
 
 function speedToRotation(originalCss, speed){
-
-	return "rotate(" + (speed + getRotationAngle(originalCss)) + "deg)";
+	return "rotate(" + (speed * 720 + getRotationAngle(originalCss)) + "deg)";
 }
 
 function getRotationAngle(rawCss){
@@ -44,4 +45,5 @@ function getRotationAngle(rawCss){
     var a = values[0];
 	var b = values[1];
 	var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+	return angle;
 }
