@@ -89,13 +89,12 @@ $border-color: gray;
             display: flex;
             align-items: center;
             justify-content: center;
-            .fa{
+            i{
                 color: white;
                 font-size: 7vw;
             }
        }
     }
-
     .section.top-left{
         border-right: 1px solid $border-color;
         border-bottom: 1px solid $border-color;
@@ -124,4 +123,7 @@ $border-color: gray;
             background-color: green;
         }
     }
+}
+.reverse{
+    transform: scale(-1, 1);
 }

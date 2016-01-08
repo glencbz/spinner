@@ -9,24 +9,24 @@ var Backing = React.createClass({
         <div className="pure-g">
             <div className="section top-left pure-u-1-2">
                 <div className="color-circle">
-                    <i className="fa-arrow-down fa"></i>
+                    <i className="fa"></i>
                 </div>
             </div>
             <div className="section top-right pure-u-1-2">
                 <div className="color-circle">
-                    <i className="fa-arrow-down fa"></i>
+                    <i className="fa"></i>
                 </div>
             </div>
         </div>
         <div className="pure-g">
             <div className="section bot-left pure-u-1-2">
                 <div className="color-circle">
-                    <i className="fa-arrow-down fa"></i>
+                    <i className="fa"></i>
                 </div>
             </div>
             <div className="section bot-right pure-u-1-2">
                 <div className="color-circle">
-                    <i className="fa-arrow-down fa"></i>
+                    <i className="fa"></i>
                 </div>
             </div>
         </div>
@@ -113,34 +113,47 @@ var $bottomLeft = $(".bot-left .fa");
 
 var timer = setInterval(function () {
     currentRotation = getRotationAngle($pointer.css("transform"));
-    console.log(currentRotation);
 	if (currentRotation >= 0 && currentRotation < 90){
+		var sectionRotation = currentRotation * 4;
 		$topRight.css("display", "inline-block");
-		$topRight.css("transform", "rotate(" + currentRotation * 4 + "deg)");
+		getLimbClass(sectionRotation, $topRight);
 	}
 	else
 		$topRight.css("display", "none");
 	if (currentRotation >= 90 && currentRotation < 180){
+		var sectionRotation = (currentRotation - 90) * 4;
 		$bottomRight.css("display", "inline-block");
-		$bottomRight.css("transform", "rotate(" + (currentRotation - 90) * 4 + "deg)");
+		getLimbClass(sectionRotation, $bottomRight);
 	}
 	else
 		$bottomRight.css("display", "none");
 	if (currentRotation >= -180 && currentRotation < -90){
+		var sectionRotation = (currentRotation + 180) * 4;
 		$bottomLeft.css("display", "inline-block");
-		$bottomLeft.css("transform", "rotate(" + (currentRotation + 180) * 4 + "deg)");
+		getLimbClass(sectionRotation, $bottomLeft);
 	}
 	else
 		$bottomLeft.css("display", "none");
 	if (currentRotation >= -90 && currentRotation < 0){
+		var sectionRotation = (currentRotation + 90) * 4;
 		$topLeft.css("display", "inline-block");
-		$topLeft.css("transform", "rotate(" + (currentRotation + 90) * 4 + "deg)");
+		getLimbClass(sectionRotation, $topLeft);
 	}
 	else
 		$topLeft.css("display", "none");
 }, 1);
 });
 
+function getLimbClass(rotation, $target){
+	if (rotation > 0 && rotation <= 90)
+		return $target.attr("class", "fi-foot");
+	else if (rotation > 90 && rotation <= 180)
+		return $target.attr("class", "fi-foot reverse");
+	else if (rotation > 180 && rotation <= 270)
+		return $target.attr("class", "fa fa-hand-paper-o");
+	else if (rotation > 180)
+		return $target.attr("class", "fa fa-hand-paper-o reverse");
+}
 
 function dist(x1, x2, y1, y2){
 	return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));

@@ -1,5 +1,6 @@
+@charset "UTF-8";
 /*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
-html {
+©html {
   color: #222;
   font-size: 1em;
   line-height: 1.4; }
@@ -115,7 +116,7 @@ textarea {
       display: flex;
       align-items: center;
       justify-content: center; }
-      .backing .section .color-circle .fa {
+      .backing .section .color-circle i {
         color: white;
         font-size: 7vw; }
   .backing .section.top-left {
@@ -138,6 +139,9 @@ textarea {
     border-top: 1px solid gray; }
     .backing .section.bot-right .color-circle {
       background-color: green; }
+
+.reverse {
+  transform: scale(-1, 1); }
 
 body {
   display: flex;
