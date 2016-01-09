@@ -176,7 +176,7 @@ $(function () {
 			$topLeft.css("display", "inline-block");
 			if (moved) $move.html(getLimbClass(sectionRotation, $topLeft) + " on blue");
 		} else $topLeft.css("display", "none");
-	}, 1);
+	}, 15);
 });
 
 function getLimbClass(rotation, $target) {

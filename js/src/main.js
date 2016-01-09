@@ -165,7 +165,7 @@ var timer = setInterval(function(){
 	}
 	else
 		$topLeft.css("display", "none");
-}, 1);
+}, 15);
 });
 
 function getLimbClass(rotation, $target){
