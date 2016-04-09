@@ -147,7 +147,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column; }
+  flex-direction: column; 
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;}
 
 p, h1, div {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
